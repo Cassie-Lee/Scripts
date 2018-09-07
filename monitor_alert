@@ -1,0 +1,31 @@
+#!/usr/bin/python                                            #正常运行脚本是python filename，加入这个运行脚本是执行“./filename”
+#coding:utf-8
+
+#monitoring and alert
+import os
+
+def filter_specific_word(filename,keyword=None):
+  """提取文件报错行，写入新文件"""
+	output=”error.log”
+	with open(filename) as f:
+		error_list=[line for line in f if keyword in line]
+	if error_list:
+		with open(output,’a’) as f:
+			f.writelines(error_list)
+		return True
+	else:
+		return False
+
+#only used in linux
+#require email
+def send_email(To,filename=”error.log”):
+	command=”echo ‘error log or anything text’ | mail –s \”error report\” –a %s %s” % (filename,To)
+	os.system(command)                                         #发送邮件，包含内容和附件
+
+monitor_files=[注意相对路径和绝对路径]
+
+if __name==”__main__”:
+	os.system(“> error.log”)                                  #清空文件error.log
+	for file in monitor_files:
+		filter_specific_word(file,’ERROR’)
+	send_email(“lidaidi2@huawie.com”)
