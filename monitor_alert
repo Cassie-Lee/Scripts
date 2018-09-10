@@ -10,22 +10,23 @@ def filter_specific_word(filename,keyword=None):
 	with open(filename) as f:
 		error_list=[line for line in f if keyword in line]
 	if error_list:
-		with open(output,’a’) as f:
+		with open(output,’w’) as f:
 			f.writelines(error_list)
-		return True
+		return filename
 	else:
-		return False
+		return None
 
 #only used in linux
 #require email
-def send_email(To,filename=”error.log”):
-	command=”echo ‘error log or anything text’ | mail –s \”error report\” –a %s %s” % (filename,To)
-	os.system(command)                                         #发送邮件，包含内容和附件
+def send_email(To,message,filename=”error.log”):
+	command=”echo ‘%s’ | mail –s \”error report\” –a %s %s” % (message,filename,To)
+	os.system(command)                                         #发送邮件，包含内容和附件,%s表示显示变量，可以直接替换为文本字符串
 
 monitor_files=[注意相对路径和绝对路径]
 
 if __name==”__main__”:
 	os.system(“> error.log”)                                  #清空文件error.log
 	for file in monitor_files:
-		filter_specific_word(file,’ERROR’)
-	send_email(“lidaidi2@huawie.com”)
+		resulth=filter_specific_word(file,’ERROR’)
+		if result:
+			send_email(“lidaidi2@huawie.com”,result)
