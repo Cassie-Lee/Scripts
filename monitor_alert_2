@@ -1,0 +1,35 @@
+#!/usr/bin/python                                                        #正常运行脚本是python filename，加入这个运行脚本是执行“./filename”
+#coding:utf-8
+
+#monitoring and alert
+import os
+
+def filter_specific_word(filename,keyword=None):
+  """提取文件报错行，写入新文件"""
+	output=”error.log”
+	with open(filename) as f:
+		error_list=[line for line in f if keyword in line]
+	if error_list:
+		with open(output,'a') as f:
+      if '关键词' in filename：
+        f.write("\nThe cloudsite report error:\n")
+        f.write(error_list[0])
+      if '关键词' in filename:
+        ......
+    
+#only used in linux
+#require email
+def send_email(mail,message):
+	command=”mail –s \”error report\” %s <<< '%s'” % (mail,message)
+	os.system(command)                                                     #发送邮件，这里直接在邮件正文中显示字符串
+
+monitor_files=[注意相对路径和绝对路径]
+
+if __name==”__main__”:
+	os.system(“> error.log”)                                               #清空文件error.log
+	for file in monitor_files:
+		filter_specific_word(file,’ERROR’)
+  with open("error.log") as f:
+    string="\n".join([i.strip() for i in f])
+  mail="lidaidi2@huawei.com"
+  send_email(mail,string)
