@@ -20,7 +20,7 @@ def filter_specific_word(filename,keyword=None):
 #require email
 def send_email(To,message,filename=”error.log”):
 	command=”echo ‘%s’ | mail –s \”error report\” –a %s %s” % (message,filename,To)
-	os.system(command)                                         #发送邮件，包含内容和附件,%s表示显示变量，可以直接替换为文本字符串
+	os.system(command)                                #发送邮件，包含内容和附件,%s表示显示变量，可以直接替换为文本字符串（%s删除，不需要形参）
 
 monitor_files=[注意相对路径和绝对路径]
 
