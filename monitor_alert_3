@@ -1,0 +1,65 @@
+#!/usr/bin/python
+#coding:utf-8
+
+import os
+import smtplib   
+from email.mime.text import MIMEText                                                  #这三行都是邮件发送模块
+from email.header import Header
+
+def filter_specific_word(filename,keyword=None):                        #对列表分类处理，有相似特征的列表作为一类处理，这里是非单一列表
+  output="error.log"
+  with open(filename) as f:
+    error_list=[line for line in f if keyword in line]
+    
+    if error_list:
+      with open(output,'a') as f:
+        if 'xx' in filename:
+          f.write("\nYYY:\n")
+          f.write(error_list[0])
+        elif .....
+        
+def filter_single_file(filename,keyword=None):                          #对列表分类处理，有相似特征的列表作为一类处理，这是单一列表   
+  output="error.log"
+  with open(filename) as f:
+    error_list=[line for line in f if keyword in line]
+  if error_list:
+    with open(output,'a') as f:
+      f.write(error_list[0])
+      return True                                                        #这里返回true和false是因为单一列表，不需要重复报错
+  else:
+    return False
+    
+def send_email(mail.string):                                      #这里是用python自带的邮件模块，第三方邮箱需要先设置下，端口一般是25
+  message=MIMEText(string,'plain','utf-8')                        #可参照邮件笔记的格式
+  message['From']=Header("test",'utf-8')
+  message['To']=Header("lidaidi",'utf-8')
+  message['subject']=Header("email test",'utf-8')
+  smpt=smtplib.SMTP('smtp.huawei.com','25')
+  smpt.sendmail("root@dggphicpra02272.huawei.com",mail,message.as_string())             #as_string，转换为字符串输出
+  
+list=[]
+dict={}
+key_1=[]                #将所有文件列表存储在字典中，使用字典，由于字典遍历顺序是乱序，先制作一个键列表，遍历列表就相当于按顺序遍历字典。
+key_2=[]                                    
+
+if __name__="__main__":
+  output="error.log"
+  os.system("> error.log")                        #清空文件
+  for index in key_1:
+    with open(output,'a') as f:                   #分类处理
+      f.write(index)
+    for x in list[index]:
+      filter_specific_word(x,"keyword")
+  for index in key_2:
+    with open(output,'a') as f:
+      f.write(index)
+    for x in list[index]:
+      if filter_single_file(x,keyword):
+        break
+  with open(output) as f:
+    string="\n".join([i.strip() for in in f])             #将文件转换为字符串
+  mails=[email]
+  for mail in mails:
+    send_email(mail,string)
+  
+
